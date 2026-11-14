@@ -1,0 +1,8 @@
+interface:
+  display_name: "Unity MCP Game Development"
+  short_description: "Build and automate Unity games through MCP"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  default_prompt: "Use $unity-mcp-game-development to inspect my Unity project and build the next verified gameplay feature."
+policy:
+  allow_implicit_invocation: true

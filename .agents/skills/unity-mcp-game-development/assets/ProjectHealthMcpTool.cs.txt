@@ -1,0 +1,49 @@
+// Template for Unity 6+ with com.unity.ai.assistant 2.0 installed.
+// Copy to an Assets/**/Editor/ folder and rename to ProjectHealthMcpTool.cs.
+// Verify namespaces against the exact installed package version.
+
+using System.Linq;
+using Unity.AI.MCP.Editor.ToolRegistry;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public static class ProjectHealthMcpTool
+{
+    [McpTool("project_health", "Read-only summary of the active scene and build scene list")]
+    public static object ProjectHealth(ProjectHealthParameters parameters)
+    {
+        var scene = SceneManager.GetActiveScene();
+        var roots = scene.IsValid() ? scene.GetRootGameObjects() : new GameObject[0];
+        var objects = roots
+            .SelectMany(root => root.GetComponentsInChildren<Transform>(parameters.IncludeInactive))
+            .Select(transform => transform.gameObject)
+            .Distinct()
+            .ToArray();
+
+        var missingScripts = objects.Sum(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount);
+        var enabledBuildScenes = EditorBuildSettings.scenes
+            .Where(item => item.enabled)
+            .Select(item => item.path)
+            .ToArray();
+
+        return new
+        {
+            success = true,
+            unityVersion = Application.unityVersion,
+            activeScene = scene.name,
+            activeScenePath = scene.path,
+            sceneIsDirty = scene.isDirty,
+            rootObjectCount = roots.Length,
+            objectCount = objects.Length,
+            missingScriptCount = missingScripts,
+            enabledBuildScenes
+        };
+    }
+}
+
+public sealed class ProjectHealthParameters
+{
+    [McpDescription("Include inactive GameObjects", Default = true)]
+    public bool IncludeInactive { get; set; } = true;
+}

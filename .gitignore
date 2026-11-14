@@ -1,0 +1,45 @@
+# === Unity Project Generated Folders ===
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+Assets/AssetStoreTools*
+Assets/AddressableAssetsData/*/*.bin*
+
+# === Visual Studio / Rider / VS Code / C# ===
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# === Crash Logs & Builds ===
+*.apk
+*.aab
+*.unitypackage
+*.app
+sysinfo.txt
+crashlytics-build.properties
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+Desktop.ini
